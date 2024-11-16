@@ -27,5 +27,5 @@ docker run -d  -v $(pwd)/b-hunters.ini:/etc/b-hunters/b-hunters.ini bormaa/b-hun
 
 ## How it works
 
-B-Hunters-Jsscanner receives the JS files from different B-Hunters modules and run scanning on them
+B-Hunters-Jsscanner receives the JS files from different B-Hunters modules and run scanning on them   
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/bormaa)
