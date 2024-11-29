@@ -30,7 +30,7 @@ COPY --from=build /root/go/bin /root/go/bin
 # RUN apt update && apt install -y git unzip \
 #     && apt clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /app/service/
-RUN pip install --no-cache-dir b-hunters==1.1.4
+RUN pip install --no-cache-dir b-hunters==1.1.7
 RUN git clone https://github.com/m4ll0k/SecretFinder.git secretfinder
 RUN pip install  --no-cache-dir -r secretfinder/requirements.txt
 
