@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from b_hunters.bhunter import BHunters
 from karton.core import Task
 import re
+from bson.objectid import ObjectId
 
 class jsscanner(BHunters):
     """
@@ -94,6 +95,7 @@ class jsscanner(BHunters):
     def process(self, task: Task) -> None:
         url = task.payload["file"]
         domain = task.payload["subdomain"]
+        report_id=task.payload_persistent["report_id"]
         self.log.info("Starting processing new url")
         self.update_task_status(url,"Started")
         js_url_match = re.search(r'(\S+\.js)\b', url)
@@ -104,13 +106,14 @@ class jsscanner(BHunters):
             
 
         self.log.warning(url)
+        self.waitformongo()
         db=self.db
         collection = db["js"]
         
-        existing_document = collection.find_one({"url": url})
+        existing_document = collection.find_one({"report_id":ObjectId(report_id),"url": url})
         resultarr=[]
         if existing_document is None:
-            new_document = {"domain": domain, "url": url,"Vulns":[], "nuclei":False}
+            new_document = {"report_id":ObjectId(report_id),"domain": domain, "url": url,"Vulns":[], "nuclei":False}
             result=self.scan(url)
             
             for i in result:
