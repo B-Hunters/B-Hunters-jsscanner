@@ -97,7 +97,10 @@ class jsscanner(BHunters):
         domain = task.payload["subdomain"]
         report_id=task.payload_persistent["report_id"]
         self.log.info("Starting processing new url")
-        self.update_task_status(url,"Started")
+        # The status belongs to the domain being processed, not to the
+        # JavaScript asset URL: the status is recorded in the domain
+        # document, and an asset URL matches no document.
+        self.update_task_status(domain,"Started")
         js_url_match = re.search(r'(\S+\.js)\b', url)
 
         if js_url_match:
@@ -130,4 +133,4 @@ class jsscanner(BHunters):
         else:
             self.log.info(f"{url} Found")
             
-        self.update_task_status(url,"Finished")
+        self.update_task_status(domain,"Finished")
