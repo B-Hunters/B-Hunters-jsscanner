@@ -33,7 +33,7 @@ WORKDIR /app/service/
 # release: a worker that calls auth_headers(task) against a release that
 # does not have it fails inside the scan.  scripts/build_workers.sh passes
 # the local wheel; the default is the published release.
-ARG B_HUNTERS_WHEEL=b-hunters==1.5.2
+ARG B_HUNTERS_WHEEL=b-hunters==1.5.3
 RUN pip install --no-cache-dir ${B_HUNTERS_WHEEL}
 RUN git clone https://github.com/m4ll0k/SecretFinder.git secretfinder
 RUN pip install  --no-cache-dir -r secretfinder/requirements.txt
